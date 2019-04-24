@@ -7,7 +7,6 @@ require 'time'
 filename = "player.json"
 exit = false
 puts("Usage: First type in username or 'exit' to leave. Second input is the EXP from the user if username is given.")
-# p Time.now.getlocal
 
 FileUtils.cp filename, "#{filename}.bak"
 
@@ -15,8 +14,9 @@ while !exit
   print "User: "
   user = gets.chomp
 
-  if user != "exit"
-
+  if user == "exit"
+    exit = true
+  else
     time = Time.now.getlocal
     time = time.strftime("%d.%m.%Y")
 
@@ -50,13 +50,8 @@ while !exit
           )
           puts("Neu: #{user} hat #{exp} exp am #{time}")
         end
-        # data.jq(".#{user}") do |value|
-        #   puts("Neu: #{user} hat #{value["exp"]} exp am #{value["date"]}")
-        # end
       end
       File.write(filename,data.to_json)
     end
-  else
-    exit = true
   end
 end
